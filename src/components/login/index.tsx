@@ -6,6 +6,7 @@ export function Login() {
   const router = useRouter()
 
   function handleSubmit(event: FormEvent) {
+    // treat the form action
     event.preventDefault() // disable the feature to reload the page on submit
 
     router.push('/register')
