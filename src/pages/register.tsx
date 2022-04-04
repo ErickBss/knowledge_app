@@ -1,54 +1,40 @@
-import { useEffect, useState } from 'react'
-import { api } from '../services/api'
+import { FormEvent, useState } from 'react'
+import { Modal } from '../components/modal'
+import { useSearchCEP } from '../hooks/useSearchCEP'
+
 import styles from './register.module.scss'
-
-type ApiAddressResponse = {
-  data: UserAddress
-}
-
-type UserAddress = {
-  neighborhood: string
-  street: string
-  city: string
-  estate: string
-}
 
 export default function Register() {
   const [cep, setCep] = useState('')
-  const [userAddress, setUserAddress] = useState({} as UserAddress)
+  const [name, setName] = useState('')
+  const [cpf, setCPF] = useState('')
+  const { userAddress } = useSearchCEP(cep)
 
-  console.log(userAddress)
+  function handleOnSubmit(e: FormEvent) {
+    e.preventDefault()
+    const confirmData = {
+      cep,
+      name,
+      cpf,
+      userAddress,
+    }
 
-  useEffect(() => {
-    const delay = setTimeout(async () => {
-      try {
-        const { data } = await api.get(`/${cep}/json`)
-
-        const userAddressDetails = {
-          neighborhood: data.bairro,
-          street: data.logradouro,
-          estate: data.uf,
-          city: data.localidade,
-        }
-        console.log(data)
-
-        console.log(userAddressDetails)
-        setUserAddress(userAddressDetails)
-      } catch (error) {
-        console.log('error')
-        setUserAddress({} as UserAddress)
-        console.log(userAddress)
-      }
-    }, 2000) // 2s
-
-    return () => clearTimeout(delay)
-  }, [cep])
+    Modal({ confirmData })
+  }
 
   return (
     <main className={styles.container}>
       <form className={styles.form}>
-        <input type="text" placeholder="Name" />
-        <input type="text" placeholder="CPF" />
+        <input
+          type="text"
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="CPF"
+          onChange={(e) => setCPF(e.target.value)}
+        />
         <input
           type="text"
           placeholder="CEP"
@@ -76,7 +62,14 @@ export default function Register() {
         />
         <input type="password" placeholder="..." />
         <div className={styles.register_button}>
-          <button type="submit">Register</button>
+          <button
+            type="submit"
+            onClick={(e) => {
+              handleOnSubmit(e)
+            }}
+          >
+            Register
+          </button>
         </div>
       </form>
     </main>
