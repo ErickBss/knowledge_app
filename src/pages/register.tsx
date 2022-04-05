@@ -1,5 +1,9 @@
 import Head from 'next/head'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
+
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { Modal } from '../components/modal'
 import { useSearchCEP } from '../hooks/useSearchCEP'
 
@@ -9,7 +13,8 @@ export default function Register() {
   const [cep, setCep] = useState('')
   const [name, setName] = useState('')
   const [cpf, setCPF] = useState('')
-  const { userAddress } = useSearchCEP(cep)
+
+  const { userAddress, error } = useSearchCEP(cep)
 
   function handleOnSubmit(e: FormEvent) {
     e.preventDefault()
@@ -23,6 +28,12 @@ export default function Register() {
     Modal({ confirmData })
   }
 
+  useEffect(() => {
+    if (error) {
+      toast.error('Invalid Cep!')
+    }
+  }, [error])
+
   return (
     <>
       <Head>
@@ -30,6 +41,8 @@ export default function Register() {
       </Head>
 
       <main className={styles.container}>
+        <ToastContainer />
+
         <form className={styles.form}>
           <input
             type="text"

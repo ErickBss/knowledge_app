@@ -11,6 +11,7 @@ export type UserAddressParams = {
 
 export const useSearchCEP = (cep: string) => {
   const [userAddress, setUserAddress] = useState({} as UserAddressParams)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const delay = setTimeout(async () => {
@@ -23,15 +24,16 @@ export const useSearchCEP = (cep: string) => {
           estate: data.uf,
           city: data.localidade,
         }
-        console.log(data)
 
-        console.log(userAddressDetails)
         setUserAddress(userAddressDetails)
-      } catch (error) {}
+        setError(false)
+      } catch (error) {
+        setError(true)
+      }
     }, 2000) // 2s
 
     return () => clearTimeout(delay)
   }, [cep])
 
-  return { userAddress, setUserAddress }
+  return { userAddress, error }
 }
