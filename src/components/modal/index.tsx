@@ -1,8 +1,9 @@
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { UserAddressParams } from '../../hooks/useSearchCEP'
+import { ShowData } from './ShowData'
 
-type RegisterDataParams = {
+export type RegisterDataParams = {
   cep: string
   name: string
   cpf: string
@@ -16,22 +17,8 @@ interface ModalProps {
 export function Modal({ confirmData }: ModalProps) {
   console.log(confirmData)
   confirmAlert({
-    customUI: ({ onClose }) => {
-      return (
-        <div className="custom-ui">
-          <h1>{confirmData.name}</h1>
-          <p>You want to delete this file?</p>
-          <button onClick={onClose}>No</button>
-          <button
-            onClick={() => {
-              this.handleClickDelete()
-              onClose()
-            }}
-          >
-            Yes, Delete it!
-          </button>
-        </div>
-      )
-    },
+    customUI: ({ onClose }) => (
+      <ShowData registerData={confirmData} onClose={onClose} />
+    ),
   })
 }

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { FormEvent, useState } from 'react'
 import { Modal } from '../components/modal'
 import { useSearchCEP } from '../hooks/useSearchCEP'
@@ -23,55 +24,61 @@ export default function Register() {
   }
 
   return (
-    <main className={styles.container}>
-      <form className={styles.form}>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="CPF"
-          onChange={(e) => setCPF(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="CEP"
-          onChange={(e) => setCep(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          value={userAddress ? userAddress.street : null}
-        />
-        <input
-          type="text"
-          placeholder="Neighborhood"
-          value={userAddress ? userAddress.neighborhood : null}
-        />
-        <input
-          type="text"
-          placeholder="City"
-          value={userAddress ? userAddress.city : null}
-        />
-        <input
-          type="text"
-          placeholder="Estate"
-          value={userAddress ? userAddress.estate : null}
-        />
-        <input type="password" placeholder="..." />
-        <div className={styles.register_button}>
-          <button
-            type="submit"
-            onClick={(e) => {
-              handleOnSubmit(e)
-            }}
-          >
-            Register
-          </button>
-        </div>
-      </form>
-    </main>
+    <>
+      <Head>
+        <title>Register</title>
+      </Head>
+
+      <main className={styles.container}>
+        <form className={styles.form}>
+          <input
+            type="text"
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="CPF"
+            onChange={(e) => setCPF(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="CEP"
+            onChange={(e) => setCep(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            value={userAddress ? userAddress.street : null}
+          />
+          <input
+            type="text"
+            placeholder="Neighborhood"
+            value={userAddress ? userAddress.neighborhood : null}
+          />
+          <input
+            type="text"
+            placeholder="City"
+            value={userAddress ? userAddress.city : null}
+          />
+          <input
+            type="text"
+            placeholder="Estate"
+            value={userAddress ? userAddress.estate : null}
+          />
+          <input type="password" placeholder="..." />
+          <div className={styles.register_button}>
+            <button
+              type="submit"
+              onClick={(e) => {
+                handleOnSubmit(e)
+              }}
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </main>
+    </>
   )
 }
