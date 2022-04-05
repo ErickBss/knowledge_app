@@ -79,7 +79,7 @@ export default function Register() {
             placeholder="Estate"
             value={userAddress ? userAddress.estate : null}
           />
-          <input type="password" placeholder="..." />
+          <input type="button" value="..." />
           <div className={styles.register_button}>
             <button
               type="submit"

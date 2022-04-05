@@ -26,7 +26,8 @@ export function ShowData({ registerData, onClose }: ShowDataProps) {
         <button onClick={onClose}>Change</button>
         <button
           onClick={() => {
-            window.location.href = 'http://localhost:3000/'
+            let route = window.location.href
+            window.location.href = route.replace('register', '')
           }}
         >
           Ok
