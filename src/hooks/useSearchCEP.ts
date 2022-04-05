@@ -14,9 +14,10 @@ export const useSearchCEP = (cep: string) => {
   const [error, setError] = useState(false)
 
   useEffect(() => {
+    //used for search on api when the user stop type
     const delay = setTimeout(async () => {
       try {
-        const { data } = await api.get(`/${cep}/json`)
+        const { data } = await api.get(`/${cep}/json`) //search cep api
 
         const userAddressDetails = {
           neighborhood: data.bairro,
